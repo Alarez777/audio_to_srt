@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  audio_to_srt:
+    image: audio_to_srt
+    volumes:
+      - /docker/audio_to_srt/source:/app/source
+      - /docker/audio_to_srt/output:/app/output
+    environment:
+      - SOURCE_NAME=${SOURCE_NAME}

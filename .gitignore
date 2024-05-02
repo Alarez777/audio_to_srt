@@ -1,0 +1,15 @@
+*.sqlite
+*.sqlite-journal
+*.DS_Store
+*.pdf
+*.pyc
+*.pyd
+*.pyo
+*.log
+/.venv
+.env
+py2app.toml
+build
+dist
+**/__pycache__/
+prueba.py
