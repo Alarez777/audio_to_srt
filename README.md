@@ -1,4 +1,5 @@
 Build image
+
 docker build -t audio_to_srt:latest ./ 
 
 Example:
