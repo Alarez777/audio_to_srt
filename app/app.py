@@ -14,6 +14,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 source_name = os.environ.get("SOURCE_NAME", "source.m4a")
+language = os.environ.get("LANGUAGE", "unknown")
 path_source = f"/app/source/{source_name}"
 logger.info(f"File name: {source_name}")
 
@@ -91,11 +92,19 @@ class Transcriber:
         clip.audio.write_audiofile("extracted_audio.wav")
         self.file_path = "extracted_audio.wav"
 
-    def transcribe_audio(self, output_format):
+    def transcribe_audio(self, output_format, language):
         self.output_format = output_format
-        model = whisperx.load_model(
-            "large-v2", self.device, compute_type=self.compute_type
-        )
+        if language == "unknown":
+            model = whisperx.load_model(
+                "large-v2", self.device, compute_type=self.compute_type
+            )
+        else:
+            model = whisperx.load_model(
+                "large-v2",
+                self.device,
+                compute_type=self.compute_type,
+                language=language,
+            )
         audio = whisperx.load_audio(self.file_path)
         self.transcription = model.transcribe(
             audio, batch_size=self.batch_size, print_progress=True
@@ -201,4 +210,4 @@ output_format = "srt"  # @param ["txt", "srt", "json"]
 
 transcriber = Transcriber()
 transcriber.upload_file(source_type=source_type)
-transcriber.transcribe_audio(output_format=output_format)
+transcriber.transcribe_audio(output_format=output_format, language=language)
