@@ -98,7 +98,8 @@ class Transcriber:
         )
         audio = whisperx.load_audio(self.file_path)
         self.transcription = model.transcribe(
-            audio, batch_size=self.batch_size)
+            audio, batch_size=self.batch_size, print_progress=True
+        )
 
         model_a, metadata = whisperx.load_align_model(
             language_code=self.transcription["language"], device=self.device
@@ -125,8 +126,7 @@ class Transcriber:
 
         elif self.output_format == "srt":
             words_per_entry = 3
-            srt_content = self.create_srt_content(
-                self.transcription, words_per_entry)
+            srt_content = self.create_srt_content(self.transcription, words_per_entry)
             path_output = f"/app/output/{source_name}.srt"
             with open(f"{path_output}", "w", encoding="utf8") as file:
                 file.write(srt_content)
@@ -134,8 +134,7 @@ class Transcriber:
         elif self.output_format == "json":
             path_output = f"/app/output/{source_name}.json"
             with open(f"{path_output}", "w", encoding="utf8") as file:
-                json.dump(self.transcription, file,
-                          indent=4, ensure_ascii=False)
+                json.dump(self.transcription, file, indent=4, ensure_ascii=False)
         else:
             print("Formato no soportado.")
 
