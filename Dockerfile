@@ -12,6 +12,7 @@ RUN apt install ffmpeg -y
 
 FROM python-base as python-base
 COPY ./preload_model.py /opt/preload_model.py
+COPY ./test.aac /opt/test.aac
 WORKDIR /opt
 RUN python preload_model.py
 
