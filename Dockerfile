@@ -19,6 +19,7 @@ RUN python preload_model.py
 FROM python-base as python-app
 COPY ./app /app
 WORKDIR /app
+RUN mkdir -p /app/output && mkdir -p /app/source
 
 CMD ["python3", "app.py"]
 
