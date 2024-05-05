@@ -5,12 +5,12 @@ model = whisperx.load_model("large-v2", "cpu", compute_type="float32", language=
 audio = whisperx.load_audio("./test.aac")
 transcription = model.transcribe(audio, batch_size=5)
 model_a, metadata = whisperx.load_align_model(
-            language_code=transcription["language"], device=cpu)
+            language_code=transcription["language"], device="cpu")
 transcription = whisperx.align(
             transcription["segments"],
             model_a,
             metadata,
             audio,
-            cpu,
+            "cpu",
             return_char_alignments=False,
         )
