@@ -18,6 +18,7 @@ language = os.environ.get("LANGUAGE", "unknown")
 batch = int(os.environ.get("BATCH", "5"))
 path_source = f"/app/source/{source_name}"
 logger.info(f"File name: {source_name}")
+logger.info(f"Bath size: {batch}")
 
 
 class Transcriber:
