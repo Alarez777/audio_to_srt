@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 source_name = os.environ.get("SOURCE_NAME", "source.m4a")
 language = os.environ.get("LANGUAGE", "unknown")
+batch = int(os.environ.get("BATCH", "5"))
 path_source = f"/app/source/{source_name}"
 logger.info(f"File name: {source_name}")
 
@@ -208,6 +209,6 @@ source_type = "audio"  # @param ["audio", "video", "social_media"]
 output_format = "srt"  # @param ["txt", "srt", "json"]
 
 
-transcriber = Transcriber()
+transcriber = Transcriber(batch_size=batch)
 transcriber.upload_file(source_type=source_type)
 transcriber.transcribe_audio(output_format=output_format, language=language)
