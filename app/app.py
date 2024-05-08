@@ -16,9 +16,11 @@ logger = logging.getLogger(__name__)
 source_name = os.environ.get("SOURCE_NAME", "source.m4a")
 language = os.environ.get("LANGUAGE", "unknown")
 batch = int(os.environ.get("BATCH", "5"))
+
 path_source = f"/app/source/{source_name}"
 logger.info(f"File name: {source_name}")
 logger.info(f"Bath size: {batch}")
+logger.info(f"Language: {language}")
 
 
 class Transcriber:
